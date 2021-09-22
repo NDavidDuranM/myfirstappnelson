@@ -29,6 +29,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    //Declaracion de objetos para invocar las componentes de la aplicacion.
     EditText firstName;
     EditText lastName;
     Spinner  gender;
@@ -53,15 +54,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Invocacion de los componentes de nombre y apellido.
         firstName = findViewById(R.id.firstNameTxt);
         lastName = findViewById(R.id.lastNameTxt);
 
+        //Invocacion y creacion del componente spinner que contendra el genero.
         gender = findViewById(R.id.genderSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gender.setAdapter(adapter);
         gender.setOnItemSelectedListener(this);
 
+        /*
+          Invocacion (no tan eficiente como queria pero que mejorare despues para aprender)
+          de los componentes checkbox que contienen cada lenguaje.
+        */
         language1 = findViewById(R.id.option1Checkbox);
         language2 = findViewById(R.id.option2Checkbox);
         language3 = findViewById(R.id.option3Checkbox);
@@ -71,8 +78,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         language7 = findViewById(R.id.option7Checkbox);
         language8 = findViewById(R.id.option8Checkbox);
 
+        /*
+          Invocacion del componente yes del radioButton que corresponde a la
+          opcion de que te gusta programar.
+        */
         doYouLikeProgrammingYes = findViewById(R.id.yesRadio);
-        doYouLikeProgrammingYes.setChecked(true);
+        doYouLikeProgrammingYes.setChecked(true); //Inicializa marcado.
         doYouLikeProgrammingYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +98,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        /*
+          Invocacion del componente no del radioButton que corresponde a la
+          opcion de que no te gusta programar.
+        */
         doYouLikeProgrammingNo = findViewById(R.id.noRadio);
+        //Si es marcado esta opcion, cada checkbox se desmarcara y se desactivara.
         doYouLikeProgrammingNo.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
@@ -111,7 +127,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        //Invocacion del componente que representa la fecha de nacimiento.
         dateTextView = findViewById(R.id.birthDateView);
+        //Creacion del sistema del calendario a mostrar y su formato.
         dateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,14 +149,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        //Invocacion del componente que representa al boton que envia toda la informacion dada.
         sendBtn = findViewById(R.id.sendButton);
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int validator = 0;
+                int validator = 0; //Variable que se utilizara para validar informaciones necesarias.
 
+                //Variable con el que se llama a la otra actividad que muestra toda la informacion.
                 Intent intent = new Intent(MainActivity.this, DisplayMessageActivity.class);
 
+                //Validacion del nombre.
                 if(firstName.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(), "Please enter your name.", Toast.LENGTH_LONG)
                             .show();
@@ -146,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     intent.putExtra("info1",firstName.getText().toString());
                     validator++;
                 }
+                //Validacion del apellido.
                 if(lastName.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(), "Please enter your last name.", Toast.LENGTH_LONG)
                             .show();
@@ -158,6 +180,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 intent.putExtra("info4",dateTextView.getText().toString());
                 intent.putExtra("info5",doYouLikeProgrammingYes.isChecked());
 
+                /*
+                  Validacion (no tan eficiente como queria pero que mejorare despues para aprender)
+                  de los componentes checkbox que contienen cada lenguaje.
+                */
                 if(doYouLikeProgrammingYes.isChecked()){
                     if(!language1.isChecked() && !language2.isChecked() && !language3.isChecked() && !language4.isChecked() &&
                             !language5.isChecked() && !language6.isChecked() && !language7.isChecked() && !language8.isChecked()){
@@ -220,12 +246,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     validator++;
                 }
 
+                /*
+                Si se cumple la condicion, es decir, si cada componente a validar cumple
+                 correctamente, entonces se llamara a la actividad que mostrara todos los datos.
+                */
                 if(validator == 3){
                     startActivity(intent);
                 }
             }
         });
 
+        /*
+        Invocacion del componente que representa el boton que limpia todos los componentes
+        y los coloca en su estado inicial.
+        */
         cleanBtn = findViewById(R.id.cleanButton);
         cleanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,12 +306,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
+    //Funciones para el funcionamiento del componente Spinner.
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         //String text = adapterView.getItemAtPosition(position).toString();
         //Toast.makeText(adapterView.getContext(), text, Toast.LENGTH_SHORT).show();
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 

@@ -18,8 +18,13 @@ public class DisplayMessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
 
+        //Variable que recibe la informacion dada de la actividad principal.
         Intent intent = getIntent();
 
+        /*
+        Variables que reciben la informacion proporcionada.
+        //------------------------------------------------------------------------------------//
+        */
         String firstName = intent.getStringExtra("info1");
         String lastName = intent.getStringExtra("info2");
 
@@ -38,7 +43,10 @@ public class DisplayMessageActivity extends AppCompatActivity {
         String language6 = intent.getStringExtra("info11");
         String language7 = intent.getStringExtra("info12");
         String language8 = intent.getStringExtra("info13");
-
+        /*
+        //------------------------------------------------------------------------------------//
+        Variable que almacena cada lenguaje recibido en String.
+        */
         ArrayList<String> language = new ArrayList<>();
         language.add(language1);
         language.add(language2);
@@ -49,6 +57,10 @@ public class DisplayMessageActivity extends AppCompatActivity {
         language.add(language7);
         language.add(language8);
 
+        /*
+        Condicion para programar un String que indique (si es cierto) los lenguajes que te
+         gustan o no (en caso contrario).
+        */
         if(doYouLikeProgramming.equals(true)){
             doYouLikeProgrammingMessage = "Me gusta programar. Mis lenguajes favoritos son: ";
 
@@ -63,6 +75,10 @@ public class DisplayMessageActivity extends AppCompatActivity {
             doYouLikeProgrammingMessage = "No me gusta programar.";
         }
 
+        /*
+        Invocacion del componente textView donde se mostraran todos los datos
+         proporcionados haciendo uso de las variables que contienen dicha informacion.
+        */
         TextView view = findViewById(R.id.yourDataView);
         view.setText("Hola! Mi nombre es " + firstName + " " + lastName + ".\n\n" +
                         "Mi genero es " + gender + ", y naci el " + birthDate + ".\n\n" +
